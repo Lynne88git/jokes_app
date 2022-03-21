@@ -166,7 +166,7 @@ module.exports = {
       themeKey: "spinner",
     }),
     require("tailwindcss-elevation")([], {
-      color: "77,192,181",
+      color: "0,0,0",
       opacityBoost: "0.23",
     }),
   ],

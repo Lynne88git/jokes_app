@@ -1,6 +1,9 @@
 import React from "react";
 import axios from "axios";
+import Image from "next/image";
 import { IJoke, IJokeResponse } from "../pages/interfaces";
+import CryingLaughing from '../../public/assets/images/crying_laughing-2.png';
+import "../../styles/Home.module.css"
 
 const defaultJokes: IJoke[] = [];
 
@@ -35,15 +38,22 @@ const JokeList = () => {
   }, []);
 
   return (
-    <div className="App">
+    <div className="joke-container flex-auto grid grid-flow-row-dense grid-cols-4">
       {loading}
-      <ul className="jokes space-y-4">
+      <div className="jokes-sidebar elevation-5">
+        <h1 className="jokes-sidebar-title">
+          <span>Dad</span>Jokes
+        </h1>
+        <Image className="joke-sidebar-img" src={CryingLaughing} alt="cryinglaughing" width="400px" height="365px"/>
+        <button className="btn text-white font-bold py-2 px-4 rounded elevation-2">New Jokes</button>
+      </div>
+      <div className="jokes-content col-span-3">
         {jokes.map((joke) => (
-          <li key={joke.id} className="w-96 bg-white shadow rounded elevation-2 bg-topaz">
+          <div key={joke.id} className="bg-white mx-auto lg:mx-0 text-gray-600 font-extrabold my-0 py-5 px-8 shadow-lg">
             {joke.joke}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
       {error && <p className="error">{error}</p>}
     </div>
   );

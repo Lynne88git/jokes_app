@@ -17,11 +17,9 @@ const Index = () => {
         />
       }
     >
-      <ul className="jokes space-y-4">
-        <li className="w-96 bg-white shadow rounded">
+      <div className="jokes">
           <JokeList />
-        </li>
-      </ul>
+      </div>
     </Main>
   );
 };

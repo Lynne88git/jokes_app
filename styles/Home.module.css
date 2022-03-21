@@ -1,3 +1,5 @@
+
+
 .container {
   padding: 0 2rem;
 }
@@ -127,6 +129,16 @@
   border-right-color: transparent;
   border-top-color: transparent;
   animation: spinAround 500ms infinite linear;
+}
+
+.jokes-sidebar{
+  background-color: #f39f86 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  text-align: center;
 }
 
 @keyframes spinAround {
