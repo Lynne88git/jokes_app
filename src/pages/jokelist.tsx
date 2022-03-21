@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { IJoke } from "../pages/interfaces";
-
+import { IJoke, IJokeResponse } from "../pages/interfaces";
 
 const defaultJokes: IJoke[] = [];
 
@@ -17,16 +16,16 @@ const JokeList = () => {
 
   React.useEffect(() => {
     axios
-      .get<IJoke[]>("https://icanhazdadjoke.com/", {
+      .get<IJokeResponse>("https://icanhazdadjoke.com/search?limit=10", {
         headers: {
           Accept: "application/json",
         },
         timeout: 10000,
       })
       .then((response) => {
-        setJokes(response.data);
+        setJokes(response.data.results);
         setLoading(false);
-        //console.log(response.data)
+        console.log(response.data.results);
       })
       .catch((error) => {
         console.log(error);
@@ -35,36 +34,15 @@ const JokeList = () => {
       });
   }, []);
 
-  //this returns the keys
-  const jokes_keys = Object.keys(jokes);
-  //this returns the values
-  const jokes_values = Object.values(jokes);
-  {
-    jokes_keys.map((key) => {
-      /*code here*/
-    });
-  }
-  {
-    jokes_values.map((key) => {
-      /*code here*/
-    });
-  }
-
-  //console.log(jokes_keys)
-  console.log(jokes_values[1]);
   return (
     <div className="App">
       {loading}
       <ul className="jokes space-y-4">
-        <li className="w-96 bg-white shadow rounded">
-          {jokes_values[1]}
-        </li>
-        
-        {/* {jokes.map((joke:any) => (
-          <li key={joke.id}>
-            <h3>{joke.joke}</h3>
+        {jokes.map((joke) => (
+          <li key={joke.id} className="w-96 bg-white shadow rounded elevation-2 bg-topaz">
+            {joke.joke}
           </li>
-        ))} */}
+        ))}
       </ul>
       {error && <p className="error">{error}</p>}
     </div>
