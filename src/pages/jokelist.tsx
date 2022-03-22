@@ -84,20 +84,25 @@ const JokeList = () => {
             className="bg-white mx-auto lg:mx-0 text-gray-600 font-extrabold my-0 py-10 px-8 shadow-lg border-y"
           >
             <div className="lg:px-5 flex flex-row">
-              <button>
+              <div className="container">
+                <div className="flex flex-row">
+              <button className="px-3">
                 <FontAwesomeIcon
                   style={{ fontSize: "25px" }}
                   icon={faArrowUp}
                 ></FontAwesomeIcon>
               </button>
-
-              {(joke.votes = 0)}
-              <button>
+              <div className="votes-count rounded-full elevation-2">
+                {(joke.votes = 0)}
+              </div> 
+              <button className="px-3">
                 <FontAwesomeIcon
                   style={{ fontSize: "25px" }}
                   icon={faArrowDown}
                 ></FontAwesomeIcon>
               </button>
+              </div>
+              </div>
               <div className="lg:px-5">
                 {joke.joke}
                 {(joke.upvote = ++joke.votes)}
