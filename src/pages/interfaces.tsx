@@ -1,17 +1,22 @@
 export interface IJoke {
+  [key: string]: any;
   id: number;
   joke: string;
 }
 
+export interface JokeVotes extends IJoke {
+  votes: number;
+  voteInt: number;
+}
+
 export interface IJokeResponse {
-  current_page: Number;
-  limit: Number;
-  next_page: Number;
-  previous_page: Number;
+  current_page: number;
+  limit: number;
+  next_page: number;
+  previous_page: number;
   results: Array<IJoke>;
   search_term: String;
-  status: Number;
-  total_jokes: Number;
-  total_pages: Number;
-  }
-
+  status: number;
+  total_jokes: number;
+  total_pages: number;
+}

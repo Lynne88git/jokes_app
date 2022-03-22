@@ -30,12 +30,6 @@ li {
   background-image: linear-gradient(-225deg, #cbbacc 0%, #2580b3 100%);
 }
 
-button,
-.gradient2 {
-  background-color: #f39f86;
-  background-image: linear-gradient(315deg, #f39f86 0%, #f9d976 74%);
-}
-
 /* Browser mockup code
 * Contribute: https://gist.github.com/jarthod/8719db9fef8deb937f4f
 * Live example: https://updown.io
@@ -71,7 +65,7 @@ button,
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 107% !important;
+  min-height: 104% !important;
   z-index: 2;
 }
 
@@ -80,20 +74,21 @@ button,
   margin: 2rem;
   color: white;
   font-weight: 300;
-  letterspacing: 0.6rem;
+  letter-spacing: 0.6rem;
 }
 
 .jokes-sidebar-title span {
   font-weight: 700;
-  letterspacing: 0;
+  letter-spacing: 0;
 }
 
 .joke-sidebar-img {
-  min-width: 85% !important;
-  min-height: 85% !important;
+  min-width: 80% !important;
+  min-height: 80% !important;
 }
 
 .jokes-content {
   align-self: center;
   margin-top: 47px;
+  border-bottom: 0.5px solid #888;
 }
