@@ -9,6 +9,7 @@ import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 import Rofl from "../../public/assets/images/rofl.png";
+//import joke from "./joke";
 // import CryingLaughingsml from "../../public/assets/images/crying_laughing.png"
 // import Laughing from "../../public/assets/images/laughing.png"
 // import Grinning from "../../public/assets/images/grinning.png"
@@ -50,9 +51,13 @@ const JokeList = () => {
         setError(error);
         setLoading(false);
       });
+
+
   };
 
   React.useEffect(() => {GetApi();}, []);
+
+
 
   return (
     <div className="joke-container flex-auto grid grid-flow-row-dense grid-cols-4">
@@ -103,6 +108,8 @@ const JokeList = () => {
                   </button>
 
                   <div className="votes-count rounded-full elevation-2">
+                    {/* style={{borderColor: getColor()}} changes here */}
+                    
                     {joke.votes ?? 0}
                   </div>
                   <button
@@ -123,6 +130,8 @@ const JokeList = () => {
                 </div>
               </div>
               <div className="lg:px-5">{joke.joke}</div>
+              {joke.votes >= 15 }
+
               <div className="container-sm ml-auto">
                 <div className="flex flex-row">
                   <div className="joke-smiley rounded-full">
@@ -144,5 +153,6 @@ const JokeList = () => {
     </div>
   );
 };
+
 
 export default JokeList;
