@@ -14,5 +14,4 @@ export interface IJokeResponse {
   status: number;
   total_jokes: number;
   total_pages: number;
-  votes: number;
 }

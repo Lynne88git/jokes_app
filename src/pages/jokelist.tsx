@@ -8,6 +8,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
+import Rofl from "../../public/assets/images/rofl.png";
+// import CryingLaughingsml from "../../public/assets/images/crying_laughing.png"
+// import Laughing from "../../public/assets/images/laughing.png"
+// import Grinning from "../../public/assets/images/grinning.png"
+// import Expressionless from "../../public/assets/images/expressionless.png"
+// import Eyeroll from "../../public/assets/images/eyeroll.png"
+// import Sleeping from "../../public/assets/images/sleeping.png"
+
 const defaultJokes: IJoke[] = [];
 
 const JokeList = () => {
@@ -20,16 +28,20 @@ const JokeList = () => {
   const [error, setError]: [string, (error: string) => void] =
     React.useState("");
 
-  React.useEffect(() => {
+  const GetApi = () => {
+    const pageNo = Math.floor(Math.random() * 6) + 1;
     axios
-      .get<IJokeResponse>("https://icanhazdadjoke.com/search?limit=10", {
-        headers: {
-          Accept: "application/json",
-        },
-        timeout: 10000,
-      })
+      .get<IJokeResponse>(
+        `https://icanhazdadjoke.com/search?limit=10&page=${pageNo}`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+          timeout: 100000,
+        }
+      )
       .then((response) => {
-        setJokes(response.data.results);
+        setJokes(response.data.results.map((joke) => ({ ...joke, votes: 0 })));
         setLoading(false);
         console.log(response.data.results);
       })
@@ -38,8 +50,9 @@ const JokeList = () => {
         setError(error);
         setLoading(false);
       });
-  }, []);
-  
+  };
+
+  React.useEffect(() => {GetApi();}, []);
 
   return (
     <div className="joke-container flex-auto grid grid-flow-row-dense grid-cols-4">
@@ -57,49 +70,79 @@ const JokeList = () => {
             height="365px"
           />
         </div>
-        <button className="btn text-white font-bold py-2 px-4 elevation-3 rounded-full">
+        <button
+          className="btn text-white font-bold py-2 px-4 elevation-3 rounded-full"
+          onClick={GetApi}
+        >
           New Jokes
         </button>
       </div>
       <div className="jokes-content col-span-3 rounded-r-lg">
-        {jokes.map((joke =>  (
+        {jokes.map((joke) => (
           <div
             key={joke.id}
             className="bg-white mx-auto lg:mx-0 text-gray-600 font-extrabold my-0 py-10 px-8 shadow-lg border-y"
           >
             <div className="lg:px-5 flex flex-row">
               <div className="container-sm">
-                <div className="flex flex-row">     
-                 
-              <button className="px-3" onClick={() => setJokes(jokes.map(joke => joke.id === joke.id ? { ...joke, upvote: joke.upvote + 1 } : joke ))} >    
-                <FontAwesomeIcon
-                  style={{ fontSize: "25px" }}
-                  icon={faArrowUp}
-                ></FontAwesomeIcon>
-              </button>
-            
-              <div className="votes-count rounded-full elevation-2">
-                {joke.votes = 0}
-              </div> 
-              <button className="px-3" onClick={() => setJokes(jokes.map(joke => joke.id === joke.id ? { ...joke, downvote: joke.downvote - 1 } : joke ))}>
-                <FontAwesomeIcon
-                  style={{ fontSize: "25px" }}
-                  icon={faArrowDown}
-                ></FontAwesomeIcon>
-              </button>
+                <div className="flex flex-row">
+                  <button
+                    className="px-3"
+                    onClick={() =>
+                      setJokes(
+                        jokes.map((j) =>
+                          j.id === joke.id ? { ...j, votes: j.votes + 1 } : j
+                        )
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      style={{ fontSize: "25px" }}
+                      icon={faArrowUp}
+                    ></FontAwesomeIcon>
+                  </button>
+
+                  <div className="votes-count rounded-full elevation-2">
+                    {joke.votes ?? 0}
+                  </div>
+                  <button
+                    className="px-3"
+                    onClick={() =>
+                      setJokes(
+                        jokes.map((j) =>
+                          j.id === joke.id ? { ...j, votes: j.votes - 1 } : j
+                        )
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      style={{ fontSize: "25px" }}
+                      icon={faArrowDown}
+                    ></FontAwesomeIcon>
+                  </button>
+                </div>
               </div>
-              </div>
-              <div className="lg:px-5">
-                {joke.joke}
+              <div className="lg:px-5">{joke.joke}</div>
+              <div className="container-sm ml-auto">
+                <div className="flex flex-row">
+                  <div className="joke-smiley rounded-full">
+                    <Image
+                      className="joke-sidebar-img"
+                      src={Rofl}
+                      alt="emoji-reaction"
+                      width="400px"
+                      height="400px"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-)))}
+        ))}
       </div>
       {error && <p className="error">{error}</p>}
     </div>
-        
-  );}
-
+  );
+};
 
 export default JokeList;

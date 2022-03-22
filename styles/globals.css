@@ -94,8 +94,46 @@ li {
 }
 
 .votes-count {
-  width: 50px;
-  height: 50px;
+  width: 55px;
+  height: 55px;
   text-align: center;
-  padding-top: 12px;
+  padding-top: 11px;
+  border: 5px solid red;
+}
+
+.joke-smiley {
+  font-size: 3rem;
+  margin-left: auto;
+  width: 55px;
+  height: 55px;
+}
+
+
+
+.deepGreen {
+  color: #4CAF50;
+}
+
+.mediumGreen {
+  color: #8BC34A;
+}
+
+.yellowGreen {
+  color: #CDDC39;
+}
+
+.primeYellow {
+  color: #FFEB3b;
+}
+
+.orangeYellowLight {
+  color: #FFC107;
+}
+
+.primeOrange {
+  color: #FF9800;
+}
+
+.primeRed {
+  color: #F44336;
 }
