@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Image from "next/image";
-import { IJoke, IJokeResponse, JokeVotes } from "../pages/interfaces";
+import { IJoke, IJokeResponse } from "../pages/interfaces";
 import CryingLaughing from "../../public/assets/images/crying_laughing-2.png";
 import "../../styles/Home.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -39,22 +39,6 @@ const JokeList = () => {
         setLoading(false);
       });
   }, []);
-
-  //Add handleVote method with id
-
-  
-//  class IJoke implements JokeVotes {
-//    [key: string]: any;
-//    votes!: number;
-//    voteInt!: number;
-//    id!: number;
-//    joke!: string;
- 
-//   constructor(id: number, joke: string, votes: number, voteInt: number) {
-//     id === id ? { votes } : id
-//   }
-  
-//   }
   
 
   return (
@@ -78,24 +62,26 @@ const JokeList = () => {
         </button>
       </div>
       <div className="jokes-content col-span-3 rounded-r-lg">
-        {jokes.map((joke) => (
+        {jokes.map((joke =>  (
           <div
             key={joke.id}
             className="bg-white mx-auto lg:mx-0 text-gray-600 font-extrabold my-0 py-10 px-8 shadow-lg border-y"
           >
             <div className="lg:px-5 flex flex-row">
-              <div className="container">
-                <div className="flex flex-row">
-              <button className="px-3">
+              <div className="container-sm">
+                <div className="flex flex-row">     
+                 
+              <button className="px-3" onClick={() => setJokes(jokes.map(joke => joke.id === joke.id ? { ...joke, upvote: joke.upvote + 1 } : joke ))} >    
                 <FontAwesomeIcon
                   style={{ fontSize: "25px" }}
                   icon={faArrowUp}
                 ></FontAwesomeIcon>
               </button>
+            
               <div className="votes-count rounded-full elevation-2">
-                {(joke.votes = 0)}
+                {joke.votes = 0}
               </div> 
-              <button className="px-3">
+              <button className="px-3" onClick={() => setJokes(jokes.map(joke => joke.id === joke.id ? { ...joke, downvote: joke.downvote - 1 } : joke ))}>
                 <FontAwesomeIcon
                   style={{ fontSize: "25px" }}
                   icon={faArrowDown}
@@ -105,16 +91,15 @@ const JokeList = () => {
               </div>
               <div className="lg:px-5">
                 {joke.joke}
-                {(joke.upvote = ++joke.votes)}
-                {(joke.downvote = --joke.votes)}
               </div>
             </div>
           </div>
-        ))}
+)))}
       </div>
       {error && <p className="error">{error}</p>}
     </div>
-  );
-};
+        
+  );}
+
 
 export default JokeList;

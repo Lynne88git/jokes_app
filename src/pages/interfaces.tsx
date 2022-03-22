@@ -4,11 +4,6 @@ export interface IJoke {
   joke: string;
 }
 
-export interface JokeVotes extends IJoke {
-  votes: number;
-  voteInt: number;
-}
-
 export interface IJokeResponse {
   current_page: number;
   limit: number;
@@ -19,4 +14,5 @@ export interface IJokeResponse {
   status: number;
   total_jokes: number;
   total_pages: number;
+  votes: number;
 }
