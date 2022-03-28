@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 import { IJoke, IJokeResponse } from "../pages/interfaces";
 import CryingLaughing from "../../public/assets/images/crying_laughing-2.png";
 import "../../styles/Home.module.css";
@@ -21,13 +22,13 @@ const defaultJokes: IJoke[] = [];
 
 const JokeList = () => {
   const [jokes, setJokes]: [IJoke[], (jokes: IJoke[]) => void] =
-    React.useState(defaultJokes);
+    useState(defaultJokes);
 
   const [loading, setLoading]: [boolean, (loading: boolean) => void] =
-    React.useState<boolean>(true);
+    useState<boolean>(true);
 
   const [error, setError]: [string, (error: string) => void] =
-    React.useState("");
+    useState("");
 
   const GetApi = () => {
     const pageNo = Math.floor(Math.random() * 6) + 1;
@@ -55,7 +56,7 @@ const JokeList = () => {
 
   };
 
-  React.useEffect(() => {GetApi();}, []);
+  useEffect(() => {GetApi();}, []);
 
 
 
@@ -96,21 +97,30 @@ const JokeList = () => {
                     onClick={() =>
                       setJokes(
                         jokes.map((j) =>
-                          j.id === joke.id ? { ...j, votes: j.votes + 1 } : j
+                          j.id === joke.id ? { ...j, votes: j.votes + 1 } : j,   
+                         
                         )
                       )
                     }
                   >
+
                     <FontAwesomeIcon
                       style={{ fontSize: "25px" }}
                       icon={faArrowUp}
                     ></FontAwesomeIcon>
                   </button>
 
-                  <div className="votes-count rounded-full elevation-2">
-                    {/* style={{borderColor: getColor()}} changes here */}
+                  <div className="votes-count rounded-full elevation-2" style={{borderColor: (joke.votes >=15) ? "#4CAF50"  
+                          : (joke.votes >=12) ? "#8BC34A"
+                          : (joke.votes >=9) ? "#CDDC39"
+                          : (joke.votes >=6) ? "#FFEB383"
+                          : (joke.votes >=3) ? "#FFC107"
+                          : (joke.votes >=0) ? "#FF9800"
+                          : "#f44336" }}>
+                  
                     
-                    {joke.votes ?? 0}
+                    {joke.votes ?? 0} 
+
                   </div>
                   <button
                     className="px-3"
@@ -130,7 +140,7 @@ const JokeList = () => {
                 </div>
               </div>
               <div className="lg:px-5">{joke.joke}</div>
-              {joke.votes >= 15 }
+              {/* {joke.votes >= 15 } */}
 
               <div className="container-sm ml-auto">
                 <div className="flex flex-row">
@@ -153,6 +163,28 @@ const JokeList = () => {
     </div>
   );
 };
-
+      // const setJokes=()=>{
+      //   if(votes >= 15){
+      //     return "#4CAF50"
+      //   }
+      //   else if(votes >= 12){
+      //     return "#8BC34A"
+      //   }
+      //   else if(votes >= 9){
+      //     return "#CDDC39"
+      //   }
+      //   else if(votes >= 6){
+      //     return "#FFEB383"
+      //   }
+      //   else if(votes >= 3){
+      //     return "#FFC107"
+      //   }
+      //   else if(votes >= 0){
+      //     return "#FF9800"
+      //   }
+      //   else {
+      //     return "#f44336"
+      //   }
+      // }
 
 export default JokeList;
