@@ -10,13 +10,13 @@ import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 import Rofl from "../../public/assets/images/rofl.png";
-//import joke from "./joke";
-// import CryingLaughingsml from "../../public/assets/images/crying_laughing.png"
-// import Laughing from "../../public/assets/images/laughing.png"
-// import Grinning from "../../public/assets/images/grinning.png"
-// import Expressionless from "../../public/assets/images/expressionless.png"
-// import Eyeroll from "../../public/assets/images/eyeroll.png"
-// import Sleeping from "../../public/assets/images/sleeping.png"
+import Smiling from "../../public/assets/images/smiling.png"
+import CryingLaughingsml from "../../public/assets/images/crying_laughing.png"
+import Laughing from "../../public/assets/images/laughing.png"
+import Grinning from "../../public/assets/images/grinning.png"
+import Expressionless from "../../public/assets/images/expressionless.png"
+import Eyeroll from "../../public/assets/images/eyeroll.png"
+import Sleeping from "../../public/assets/images/sleeping.png"
 
 const defaultJokes: IJoke[] = [];
 
@@ -145,9 +145,17 @@ const JokeList = () => {
               <div className="container-sm ml-auto">
                 <div className="flex flex-row">
                   <div className="joke-smiley rounded-full">
-                    <Image
+                  <Image
                       className="joke-sidebar-img"
-                      src={Rofl}
+                      src={(joke.votes >=15) ? Rofl 
+                      : (joke.votes >=12) ? CryingLaughingsml
+                      : (joke.votes >=9) ? Laughing
+                      : (joke.votes >=6) ? Grinning
+                      : (joke.votes >=3) ? Smiling
+                      : (joke.votes >=0) ? Expressionless
+                      : (joke.votes >=-1) ? Eyeroll
+                      : (joke.votes < 0) ? Sleeping
+                      : Expressionless}
                       alt="emoji-reaction"
                       width="400px"
                       height="400px"
